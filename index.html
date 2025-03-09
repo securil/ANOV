@@ -73,7 +73,7 @@
             background-position: center;
             padding: 100px 0;
         }
-
+        
         .hero:before {
             content: "";
             position: absolute;
@@ -103,6 +103,69 @@
         .hero p {
             font-size: 1.3rem;
             max-width: 700px;
+        }
+
+        /* 캐러셀 커스텀 스타일 - 간소화 버전 */
+        #heroCarousel .carousel-item {
+            transition: transform 0.6s ease-in-out;
+        }
+        
+        /* 영상 위 다시보기 버튼 스타일 */
+        #replayBtn {
+            transition: all 0.3s ease;
+            padding: 10px 20px;
+            border-radius: 30px;
+        }
+        
+        #replayBtn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 타이머 프로그레스 바 */
+        .timer-progress {
+            width: 100%;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.2);
+            position: relative;
+            margin-top: 20px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .timer-progress-bar {
+            position: absolute;
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            width: 0;
+            transition: width 0.1s linear;
+        }
+
+        /* TikTok Pulse Animation for Hero */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(254, 44, 85, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(254, 44, 85, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(254, 44, 85, 0); }
+        }
+
+        .tiktok-icon {
+            width: 70px;
+            height: 70px;
+            background-color: rgba(18, 18, 18, 0.8);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            box-shadow: 0 0 0 0 rgba(254, 44, 85, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        .tiktok-icon i {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         /* Buttons */
@@ -142,33 +205,6 @@
 
         .btn-custom:hover:before {
             left: 0;
-        }
-
-        /* TikTok Pulse Animation for Hero */
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(254, 44, 85, 0.4); }
-            70% { box-shadow: 0 0 0 20px rgba(254, 44, 85, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(254, 44, 85, 0); }
-        }
-
-        .tiktok-icon {
-            width: 70px;
-            height: 70px;
-            background-color: rgba(18, 18, 18, 0.8);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 30px;
-            box-shadow: 0 0 0 0 rgba(254, 44, 85, 0.4);
-            animation: pulse 2s infinite;
-        }
-
-        .tiktok-icon i {
-            font-size: 2.5rem;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
         /* Core Values Section */
@@ -501,6 +537,35 @@
             margin-bottom: 10px;
         }
 
+        /* 비디오 로딩/에러 메시지 */
+        .video-status {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+            display: none;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 15px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
@@ -555,31 +620,76 @@
     <div class="tiktok-bg-element element-1"></div>
     <div class="tiktok-bg-element element-2"></div>
 
-    <!-- Hero Section (Korean) -->
+    <!-- Hero Section with Improved Carousel (Korean) -->
     <section class="hero">
         <div class="container hero-content">
-            <div class="row align-items-center">
-                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="tiktok-icon">
-                        <i class="fab fa-tiktok"></i>
+            <div id="heroCarousel" class="carousel slide" data-bs-ride="false" data-bs-interval="false" data-bs-wrap="false">
+                <div class="carousel-inner">
+                    <!-- Slide 1: 메인 메시지 -->
+                    <div class="carousel-item active" id="slide1">
+                        <div class="row align-items-center">
+                            <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                                <div class="tiktok-icon mx-auto">
+                                    <i class="fab fa-tiktok"></i>
+                                </div>
+                                <h1 class="mb-4">틱톡에서 <br>당신의 브랜드를 빛내세요</h1>
+                                <p class="mb-5">ANOV는 틱톡 마케팅 전문 에이전시로, 최신 트렌드와 AI 분석을 활용하여 브랜드와 인플루언서를 매칭하고 바이럴 콘텐츠를 제작합니다. 수백만 명의 시청자에게 당신의 메시지를 전달하세요.</p>
+                                <div class="d-flex justify-content-center flex-wrap gap-3 mb-3">
+                                    <a href="creators.html" class="btn btn-primary btn-custom">크리에이터 등록하기</a>
+                                    <a href="business.html" class="btn btn-secondary btn-custom">브랜드 컨설팅 받기</a>
+                                </div>
+                                
+                                <!-- 타이머 프로그레스 바 (12초) -->
+                                <div class="timer-progress">
+                                    <div class="timer-progress-bar" id="timerBar"></div>
+                                </div>
+                                
+                                <!-- 비디오 바로 보기 버튼 -->
+                                <div class="mt-4">
+                                    <button id="skipToVideoBtn" class="btn btn-link text-white">
+                                        <i class="fas fa-play-circle me-2"></i>비디오 바로 보기
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <h1 class="mb-4">틱톡에서 <br>당신의 브랜드를 빛내세요</h1>
-                    <p class="mb-5">ANOV는 틱톡 마케팅 전문 에이전시로, 최신 트렌드와 AI 분석을 활용하여 브랜드와 인플루언서를 매칭하고 바이럴 콘텐츠를 제작합니다. 수백만 명의 시청자에게 당신의 메시지를 전달하세요.</p>
-                    <div class="d-flex flex-wrap gap-3">
-                        <a href="creators.html" class="btn btn-primary btn-custom">크리에이터 등록하기</a>
-                        <a href="business.html" class="btn btn-secondary btn-custom">브랜드 컨설팅 받기</a>
-                    </div>
-                </div>
-                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); border: 2px solid rgba(254, 44, 85, 0.3);">
-                        <video autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
-                            <source src="https://github.com/securil/ANOV/raw/main/Final.mp4" type="video/mp4">
-                            브라우저가 비디오 태그를 지원하지 않습니다.
-                        </video>
-                        <!-- 비디오 오버레이 (틱톡 느낌의 장식 요소) -->
-                        <div style="position: absolute; top: 20px; right: 20px; background-color: rgba(18, 18, 18, 0.7); padding: 8px 12px; border-radius: 20px; display: flex; align-items: center; backdrop-filter: blur(4px);">
-                            <i class="fab fa-tiktok" style="color: #FE2C55; margin-right: 8px;"></i>
-                            <span style="color: white; font-weight: 600; font-size: 14px;">ANOV</span>
+                    
+                    <!-- Slide 2: 비디오 -->
+                    <div class="carousel-item" id="slide2">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8" data-aos="fade-up">
+                                <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); border: 2px solid rgba(254, 44, 85, 0.3);">
+                                    <!-- 비디오 로딩 상태 표시 -->
+                                    <div id="videoLoading" class="video-status">
+                                        <div class="loading-spinner"></div>
+                                        <p class="mb-0">비디오 로딩 중...</p>
+                                    </div>
+                                    
+                                    <!-- 비디오 에러 메시지 -->
+                                    <div id="videoError" class="video-status">
+                                        <i class="fas fa-exclamation-triangle mb-3" style="font-size: 2rem; color: var(--primary-color);"></i>
+                                        <p class="mb-2">비디오를 불러올 수 없습니다</p>
+                                        <button id="videoRetryBtn" class="btn btn-sm btn-outline-light">다시 시도</button>
+                                    </div>
+                                    
+                                    <video id="heroVideo" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+                                        <source src="https://github.com/securil/ANOV/raw/main/Final.mp4" type="video/mp4">
+                                        브라우저가 비디오 태그를 지원하지 않습니다.
+                                    </video>
+                                    <div style="position: absolute; top: 20px; right: 20px; background-color: rgba(18, 18, 18, 0.7); padding: 8px 12px; border-radius: 20px; display: flex; align-items: center; backdrop-filter: blur(4px);">
+                                        <i class="fab fa-tiktok" style="color: #FE2C55; margin-right: 8px;"></i>
+                                        <span style="color: white; font-weight: 600; font-size: 14px;">ANOV</span>
+                                    </div>
+                                </div>
+                                <div class="text-center mt-4">
+                                    <button id="replayBtn" class="btn btn-primary btn-custom" style="display: none;">
+                                        <i class="fas fa-redo me-2"></i>영상 다시보기
+                                    </button>
+                                    <button id="skipToTextBtn" class="btn btn-outline-light btn-custom ms-2" style="display: none;">
+                                        <i class="fas fa-arrow-left me-2"></i>메인으로 돌아가기
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -896,23 +1006,282 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- AOS Animation Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <!-- Custom JS -->
+    <!-- Custom JS with Error Handling -->
     <script>
         // Initialize AOS animations
-        AOS.init({
-            duration: 800,
-            once: true
-        });
+        document.addEventListener('DOMContentLoaded', function() {
+            // AOS 초기화
+            try {
+                AOS.init({
+                    duration: 800,
+                    once: true
+                });
+            } catch (error) {
+                console.error('AOS 초기화 오류:', error);
+            }
 
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.style.padding = '10px 0';
-                navbar.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.1)';
-            } else {
-                navbar.style.padding = '20px 0';
-                navbar.style.boxShadow = 'none';
+            // Navbar scroll effect
+            try {
+                window.addEventListener('scroll', function() {
+                    const navbar = document.querySelector('.navbar');
+                    if (navbar) {
+                        if (window.scrollY > 50) {
+                            navbar.style.padding = '10px 0';
+                            navbar.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.1)';
+                        } else {
+                            navbar.style.padding = '20px 0';
+                            navbar.style.boxShadow = 'none';
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('네비게이션 스크롤 효과 오류:', error);
+            }
+            
+            // Hero Section Carousel & Video Control - 개선된 버전
+            try {
+                // 필요한 요소들 가져오기
+                const heroCarouselElement = document.getElementById('heroCarousel');
+                const heroVideo = document.getElementById('heroVideo');
+                const replayBtn = document.getElementById('replayBtn');
+                const skipToVideoBtn = document.getElementById('skipToVideoBtn');
+                const skipToTextBtn = document.getElementById('skipToTextBtn');
+                const timerBar = document.getElementById('timerBar');
+                const videoLoading = document.getElementById('videoLoading');
+                const videoError = document.getElementById('videoError');
+                const videoRetryBtn = document.getElementById('videoRetryBtn');
+                
+                // 요소 존재 확인
+                if (!heroCarouselElement) {
+                    console.error('캐러셀 요소를 찾을 수 없습니다.');
+                    return;
+                }
+                
+                // Bootstrap 라이브러리 확인
+                if (typeof bootstrap === 'undefined') {
+                    console.error('Bootstrap 라이브러리가 로드되지 않았습니다.');
+                    return;
+                }
+                
+                // 캐러셀 초기화
+                const carousel = new bootstrap.Carousel(heroCarouselElement, {
+                    interval: false,
+                    wrap: false
+                });
+                
+                // 비디오 상태 표시 함수들
+                function showVideoLoading() {
+                    if (videoLoading) videoLoading.style.display = 'block';
+                    if (videoError) videoError.style.display = 'none';
+                }
+                
+                function hideVideoLoading() {
+                    if (videoLoading) videoLoading.style.display = 'none';
+                }
+                
+                function showVideoError() {
+                    if (videoLoading) videoLoading.style.display = 'none';
+                    if (videoError) videoError.style.display = 'block';
+                }
+                
+                function hideVideoError() {
+                    if (videoError) videoError.style.display = 'none';
+                }
+                
+                // 비디오 요소 이벤트 핸들러 (존재할 경우에만)
+                if (heroVideo) {
+                    // 비디오 로딩 시작 시
+                    heroVideo.addEventListener('loadstart', function() {
+                        showVideoLoading();
+                    });
+                    
+                    // 비디오 로드 확인
+                    heroVideo.addEventListener('canplay', function() {
+                        hideVideoLoading();
+                        hideVideoError();
+                    });
+                    
+                    // 비디오 로드 오류
+                    heroVideo.addEventListener('error', function(e) {
+                        console.error('비디오 로드 중 오류 발생:', e);
+                        showVideoError();
+                    });
+                    
+                    // 비디오가 끝나면 첫 번째 슬라이드로 돌아가고 다시보기 버튼 표시
+                    heroVideo.addEventListener('ended', function() {
+                        try {
+                            carousel.to(0); // 첫 번째 슬라이드로 이동
+                            if (replayBtn) replayBtn.style.display = 'inline-block'; // 다시보기 버튼 표시
+                        } catch (error) {
+                            console.error('비디오 종료 후 슬라이드 전환 중 오류 발생:', error);
+                        }
+                    });
+                } else {
+                    console.warn('비디오 요소를 찾을 수 없습니다.');
+                }
+                
+                // 12초 타이머 및 프로그레스 바 업데이트 (timerBar가 존재할 경우에만)
+                let timerWidth = 0;
+                let timer;
+                const timerDuration = 12000; // 12초
+                const timerInterval = 50; // 50ms마다 업데이트
+                const steps = timerDuration / timerInterval;
+                const increment = 100 / steps;
+                
+                function startTimerProgress() {
+                    if (!timerBar) return;
+                    
+                    timerWidth = 0;
+                    timerBar.style.width = '0%';
+                    
+                    clearInterval(timer); // 기존 타이머 제거
+                    
+                    timer = setInterval(function() {
+                        timerWidth += increment;
+                        timerBar.style.width = timerWidth + '%';
+                        
+                        if (timerWidth >= 100) {
+                            clearInterval(timer);
+                            
+                            // 비디오 슬라이드로 전환
+                            try {
+                                carousel.next();
+                                
+                                // 비디오 재생 시도
+                                if (heroVideo) {
+                                    heroVideo.currentTime = 0; // 비디오 시작 위치로 리셋
+                                    
+                                    // 브라우저 정책에 따라 자동 재생이 차단될 수 있으므로 try-catch로 감싸기
+                                    try {
+                                        let playPromise = heroVideo.play();
+                                        if (playPromise !== undefined) {
+                                            playPromise.catch(error => {
+                                                console.warn('자동 재생이 차단되었습니다:', error);
+                                                // 사용자 상호작용 유도 (e.g., 재생 버튼 표시)
+                                                if (skipToTextBtn) skipToTextBtn.style.display = 'inline-block';
+                                            });
+                                        }
+                                    } catch (playError) {
+                                        console.error('비디오 재생 중 오류 발생:', playError);
+                                        if (skipToTextBtn) skipToTextBtn.style.display = 'inline-block';
+                                    }
+                                }
+                            } catch (carouselError) {
+                                console.error('슬라이드 전환 중 오류 발생:', carouselError);
+                            }
+                        }
+                    }, timerInterval);
+                }
+                
+                // 페이지 로드 시 타이머 시작
+                startTimerProgress();
+                
+                // 다시보기 버튼 클릭 이벤트
+                if (replayBtn) {
+                    replayBtn.addEventListener('click', function() {
+                        try {
+                            carousel.to(1); // 비디오 슬라이드로 이동
+                            
+                            if (heroVideo) {
+                                heroVideo.currentTime = 0; // 비디오 시작 위치로 리셋
+                                let playPromise = heroVideo.play(); // 비디오 재생
+                                if (playPromise !== undefined) {
+                                    playPromise.catch(error => {
+                                        console.warn('사용자 상호작용 후 재생 중 오류 발생:', error);
+                                        if (skipToTextBtn) skipToTextBtn.style.display = 'inline-block';
+                                    });
+                                }
+                            }
+                            
+                            replayBtn.style.display = 'none'; // 다시보기 버튼 숨기기
+                        } catch (error) {
+                            console.error('다시보기 버튼 클릭 처리 중 오류 발생:', error);
+                        }
+                    });
+                }
+                
+                // 비디오 바로 보기 버튼 클릭 이벤트
+                if (skipToVideoBtn) {
+                    skipToVideoBtn.addEventListener('click', function() {
+                        try {
+                            clearInterval(timer); // 타이머 중지
+                            carousel.to(1); // 비디오 슬라이드로 이동
+                            
+                            if (heroVideo) {
+                                heroVideo.currentTime = 0; // 비디오 시작 위치로 리셋
+                                let playPromise = heroVideo.play(); // 비디오 재생
+                                if (playPromise !== undefined) {
+                                    playPromise.catch(error => {
+                                        console.warn('비디오 바로 보기 재생 중 오류 발생:', error);
+                                        if (skipToTextBtn) skipToTextBtn.style.display = 'inline-block';
+                                    });
+                                }
+                            }
+                        } catch (error) {
+                            console.error('비디오 바로 보기 버튼 클릭 처리 중 오류 발생:', error);
+                        }
+                    });
+                }
+                
+                // 메인으로 돌아가기 버튼 클릭 이벤트
+                if (skipToTextBtn) {
+                    skipToTextBtn.addEventListener('click', function() {
+                        try {
+                            carousel.to(0); // 첫 번째 슬라이드로 이동
+                            if (heroVideo) heroVideo.pause(); // 비디오 정지
+                            startTimerProgress(); // 타이머 재시작
+                            skipToTextBtn.style.display = 'none'; // 버튼 숨기기
+                        } catch (error) {
+                            console.error('메인으로 돌아가기 버튼 클릭 처리 중 오류 발생:', error);
+                        }
+                    });
+                }
+                
+                // 비디오 재시도 버튼 클릭 이벤트
+                if (videoRetryBtn && heroVideo) {
+                    videoRetryBtn.addEventListener('click', function() {
+                        try {
+                            // 비디오 소스 다시 로딩
+                            const currentSrc = heroVideo.querySelector('source').src;
+                            heroVideo.querySelector('source').src = currentSrc;
+                            heroVideo.load();
+                            
+                            // 로딩 표시
+                            hideVideoError();
+                            showVideoLoading();
+                            
+                            // 비디오가 로드되면 재생 시도
+                            heroVideo.addEventListener('canplay', function canPlayHandler() {
+                                heroVideo.removeEventListener('canplay', canPlayHandler); // 이벤트 리스너 한 번만 실행
+                                hideVideoLoading();
+                                let playPromise = heroVideo.play();
+                                if (playPromise !== undefined) {
+                                    playPromise.catch(error => {
+                                        console.warn('재시도 후 재생 중 오류 발생:', error);
+                                    });
+                                }
+                            }, { once: true }); // once 옵션으로 이벤트 한 번만 처리
+                        } catch (error) {
+                            console.error('비디오 재시도 버튼 클릭 처리 중 오류 발생:', error);
+                        }
+                    });
+                }
+                
+                // 페이지 나가기/숨김 시 타이머 정리
+                document.addEventListener('visibilitychange', function() {
+                    if (document.hidden) {
+                        clearInterval(timer);
+                    } else {
+                        // 페이지가 다시 보이면 현재 슬라이드 확인 후 타이머 재시작 여부 결정
+                        const activeSlide = heroCarouselElement.querySelector('.carousel-item.active');
+                        if (activeSlide && activeSlide.id === 'slide1') {
+                            startTimerProgress();
+                        }
+                    }
+                });
+                
+            } catch (error) {
+                console.error('히어로 섹션 초기화 중 오류 발생:', error);
             }
         });
     </script>
