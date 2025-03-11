@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - ANOV 틱톡 마케팅 및 크리에이터 에이전시</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #FE2C55; /* TikTok pink/red */
+            --secondary-color: #25F4EE; /* TikTok cyan */
+            --dark-color: #121212;
+            --light-color: #f8f9fa;
+            --gray-color: #adb5bd;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-color);
+            color: var(--light-color);
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: rgba(18, 18, 18, 0.95) !important;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: var(--light-color) !important;
+            font-weight: 500;
+            margin: 0 10px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover:after {
+            width: 100%;
+        }
+
+        .nav-link.active:after {
+            width: 100%;
+        }
+
+        /* Page Header */
+        .page-header {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1920/1080') no-repeat;
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+        }
+        
+        .page-header:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(254, 44, 85, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(37, 244, 238, 0.2) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .header-content {
+            z-index: 2;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .page-header p {
+            font-size: 1.3rem;
+            max-width: 700px;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .about-section:before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(254, 44, 85, 0.1) 0%, transparent 70%);
+            top: -50px;
+            right: -100px;
+            border-radius: 50%;
+        }
+
+        .about-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-image:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+        }
+
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            bottom: 0;
+            left: 0;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background-color: #0D0D0D;
+            position: relative;
+        }
+
+        .services:after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(37, 244, 238, 0.1) 0%, transparent 70%);
+            bottom: -100px;
+            left: -100px;
+            border-radius: 50%;
+        }
+
+        .service-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            height: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .service-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.5s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-card:hover:before {
+            transform: scaleY(1);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(254, 44, 85, 0.1);
+            color: var(--primary-color);
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* Team Section */
+        .team {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .team-member {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary-color);
+        }
+
+        .team-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            border: 3px solid var(--primary-color);
+            position: relative;
+        }
+
+        .team-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .team-member:hover .team-avatar img {
+            transform: scale(1.1);
+        }
+
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .team-social a {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--light-color);
+            transition: all 0.3s ease;
+        }
+
+        .team-social a:hover {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transform: translateY(-3px);
+        }
+
+        /* Contact Info Section */
+        .contact-info {
+            padding: 100px 0;
+            background-color: #0D0D0D;
+            position: relative;
+        }
+
+        .contact-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            height: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary-color);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+            height: 400px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0D0D0D;
+            padding: 50px 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-heading {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-heading:after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            bottom: -10px;
+            left: 0;
+        }
+
+        .footer-link {
+            color: var(--gray-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .footer-link:hover {
+            color: var(--light-color);
+            transform: translateX(5px);
+        }
+
+        .social-icons {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons li a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--light-color);
+            transition: all 0.3s ease;
+        }
+
+        .social-icons li a:hover {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 20px;
+            margin-top: 30px;
+        }
+
+        /* TikTok Style Background Elements */
+        .tiktok-bg-element {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.05;
+            filter: blur(30px);
+        }
+
+        .element-1 {
+            background-color: var(--primary-color);
+            width: 300px;
+            height: 300px;
+            top: 20%;
+            left: -150px;
+        }
+
+        .element-2 {
+            background-color: var(--secondary-color);
+            width: 250px;
+            height: 250px;
+            bottom: 10%;
+            right: -100px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            .page-header p {
+                font-size: 1rem;
+            }
+            .about-section, .services, .team, .contact-info {
+                padding: 60px 0;
+            }
+            .about-image {
+                margin-bottom: 30px;
+            }
+            .map-container {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation (Kept in English) -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">ANOV</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="business.html">Business</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="creators.html">Creators</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contents.html">Content & Trends</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- TikTok Style Background Elements -->
+    <div class="tiktok-bg-element element-1"></div>
+    <div class="tiktok-bg-element element-2"></div>
+
+    <!-- Page Header -->
+    <section class="page-header" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat; background-size: cover; background-position: center;">
+        <div class="container header-content">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8" data-aos="fade-up">
+                    <h1>About ANOV</h1>
+                    <p class="mt-4">틱톡 크리에이터의 성장과 비즈니스 성공을 함께 이끌어 가는 국내 최고의 틱톡 마케팅 에이전시입니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title mx-auto">ANOV 소개</h2>
+                <p class="lead mb-4">틱톡 크리에이터와 브랜드의 성공적인 파트너십을 위한 완벽한 솔루션</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto" data-aos="fade-up">
+                    <p class="mb-4">ANOV는 틱톡 콘텐츠 제작 및 마케팅 전문 에이전시로, 크리에이터와 브랜드 간의 효과적인 협업을 통해 Z세대를 타겟으로 한 바이럴 마케팅을 실현합니다.</p>
+                    <p class="mb-4">최신 트렌드 분석과 AI 기반 데이터 솔루션을 활용하여 브랜드에 최적화된 인플루언서를 매칭하고, 틱톡 알고리즘을 고려한 콘텐츠 전략을 수립합니다.</p>
+                    <p>또한 크리에이터의 지속적인 성장을 위한 전문적인 교육과 지원 시스템을 갖추고 있으며, 다양한 브랜드와의 협업 기회를 제공합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services" style="background: #0D0D0D url('https://images.unsplash.com/photo-1586214671464-043ce7d5bcdd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat; background-size: cover; background-position: center; background-blend-mode: overlay;">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="mb-3">ANOV 크리에이터 지원 서비스</h2>
+                <p class="lead w-75 mx-auto">틱톡 크리에이터의 성장과 성공을 위한 ANOV의 차별화된 지원 시스템</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <h3 class="mb-3">라이브 방송 교육</h3>
+                        <p>틱톡 주간 랭커 및 전문 교육팀이 운영하는 체계적인 교육 시스템을 제공합니다. 최신 트렌드와 콘텐츠 제작 노하우를 배우고 실전 피드백을 받을 수 있습니다.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="mb-3">지원 시스템</h3>
+                        <p>크리에이터 활동에 필요한 법률, 세금 자문 및 상담 트래픽, 리스크 관리 등의 종합적인 지원을 제공합니다. 크리에이터는 콘텐츠 제작에만 집중할 수 있습니다.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <h3 class="mb-3">홍보 지원</h3>
+                        <p>소속 크리에이터의 성장을 위해 온·오프라인 홍보를 진행합니다. SNS 채널 관리부터 미디어 노출까지 다양한 플랫폼을 통해 크리에이터의 인지도를 높입니다.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <h3 class="mb-3">스튜디오 운영</h3>
+                        <p>자체 스튜디오를 개설하고 무료 지원 서비스를 제공합니다. 최신 촬영 장비와 편집 시설을 갖춘 전문 공간에서 고퀄리티 콘텐츠를 제작할 수 있습니다.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="mb-3">콜라보레이션</h3>
+                        <p>크리에이터 간 협업 및 콘텐츠 제작을 지원합니다. 다양한 분야의 크리에이터들과 함께 시너지를 발휘하고 새로운 아이디어를 실현할 수 있는 기회를 제공합니다.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3 class="mb-3">브랜드 협찬 및 광고</h3>
+                        <p>다양한 브랜드와의 협찬을 통한 추가 수익 창출 기회를 제공합니다. 크리에이터의 콘텐츠 스타일에 맞는 브랜드를 연결하여 자연스러운 협업을 지원합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team" id="team" style="background: var(--dark-color) url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat; background-size: cover; background-position: center; background-blend-mode: overlay; background-color: rgba(18, 18, 18, 0.9);">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="mb-3">ANOV 팀 소개</h2>
+                <p class="lead w-75 mx-auto">틱톡 마케팅의 전문가들이 모여 크리에이터와 브랜드의 성공을 함께 만들어갑니다</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="team-member">
+                        <div class="team-avatar">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80" alt="CEO">
+                        </div>
+                        <h4>김준호</h4>
+                        <p class="text-muted">CEO & Founder</p>
+                        <p>10년 경력의 소셜 미디어 마케팅 전문가</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="team-member">
+                        <div class="team-avatar">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80" alt="Creative Director">
+                        </div>
+                        <h4>이미나</h4>
+                        <p class="text-muted">Creative Director</p>
+                        <p>틱톡 트렌드 및 콘텐츠 전략 전문가</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="team-member">
+                        <div class="team-avatar">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80" alt="Marketing Manager">
+                        </div>
+                        <h4>박태준</h4>
+                        <p class="text-muted">Marketing Manager</p>
+                        <p>데이터 기반 마케팅 분석 전문가</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="team-member">
+                        <div class="team-avatar">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80" alt="Creator Relations">
+                        </div>
+                        <h4>최수지</h4>
+                        <p class="text-muted">Creator Relations</p>
+                        <p>크리에이터 매니지먼트 및 교육 담당</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Info Section -->
+    <section class="contact-info" id="contact" style="background: #0D0D0D url('https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat; background-size: cover; background-position: center; background-blend-mode: overlay;">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="mb-3">연락처 및 위치</h2>
+                <p class="lead w-75 mx-auto">ANOV와 함께 성장하고 싶으신가요? 언제든지 연락주세요.</p>
+            </div>
+            <div class="row g-4 mb-5">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="contact-card">
+                        <div class="contact-icon mx-auto">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h4 class="text-center mb-3">전화번호</h4>
+                        <p class="text-center mb-0">
+                            <a href="tel:02-336-5323" class="text-white text-decoration-none">02-336-5323</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="contact-card">
+                        <div class="contact-icon mx-auto">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h4 class="text-center mb-3">주소</h4>
+                        <p class="text-center mb-0">경기도 수원시 팔달구 인계로 166번길 47-17, 엠02호 (인계동)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12" data-aos="fade-up">
+                    <div class="map-container">
+                        <!-- 실제 구현 시 Google Maps API 또는 Kakao Maps API를 사용하여 지도 삽입 -->
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3174.6639932478644!2d127.02730037583398!3d37.2635209340616!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b42c389e939b5%3A0x5b1013fdf3f27624!2z7J247KCV64-Z7IqkIOyImOybkOuTnCDtmITri7nqtawg7J247KeA66GcIDE2Nu2YhOq4uCA0Ny0xNw!5e0!3m2!1sko!2skr!4v1710130784301!5m2!1sko!2skr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="py-5" style="background-color: #0A0A0A;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 text-center text-lg-start" data-aos="fade-right">
+                    <h2 class="mb-3">ANOV와 함께 성장할 준비가 되셨나요?</h2>
+                    <p class="lead mb-lg-0">틱톡 크리에이터로서의 성공을 위한 첫 걸음을 ANOV와 함께 시작하세요.</p>
+                </div>
+                <div class="col-lg-4 text-center text-lg-end mt-4 mt-lg-0" data-aos="fade-left">
+                    <a href="contact.html" class="btn btn-primary btn-custom">크리에이터 등록하기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Headings in English, content in Korean) -->
+    <footer>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <a href="index.html" class="text-decoration-none">
+                        <h3 class="text-white mb-4">ANOV</h3>
+                    </a>
+                    <p>틱톡 마케팅 전문 에이전시로, 브랜드와 크리에이터를 연결하여 Z세대를 겨냥한 효과적인 콘텐츠 마케팅을 제공합니다.</p>
+                    <ul class="social-icons">
+                        <li><a href="#"><i class="fab fa-tiktok"></i></a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <h4 class="footer-heading">Company</h4>
+                    <a href="about.html" class="footer-link">회사 소개</a>
+                    <a href="about.html#team" class="footer-link">팀 소개</a>
+                    <a href="about.html#careers" class="footer-link">채용 정보</a>
+                    <a href="#" class="footer-link">언론 보도</a>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <h4 class="footer-heading">Services</h4>
+                    <a href="business.html" class="footer-link">틱톡 마케팅</a>
+                    <a href="creators.html" class="footer-link">인플루언서 매칭</a>
+                    <a href="business.html#campaigns" class="footer-link">캠페인 기획</a>
+                    <a href="business.html#analytics" class="footer-link">데이터 분석</a>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <h4 class="footer-heading">Resources</h4>
+                    <a href="contents.html" class="footer-link">블로그</a>
+                    <a href="contents.html#trends" class="footer-link">틱톡 트렌드</a>
+                    <a href="#" class="footer-link">성공 사례</a>
+                    <a href="#" class="footer-link">튜토리얼</a>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <h4 class="footer-heading">Support</h4>
+                    <a href="contact.html" class="footer-link">문의하기</a>
+                    <a href="#" class="footer-link">고객 지원 센터</a>
+                    <a href="#" class="footer-link">개인정보 처리방침</a>
+                    <a href="#" class="footer-link">이용약관</a>
+                </div>
+            </div>
+            <div class="text-center copyright">
+                <p>© 2025 ANOV. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Initialize AOS animations
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.style.padding = '10px 0';
+                    navbar.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.1)';
+                } else {
+                    navbar.style.padding = '20px 0';
+                    navbar.style.boxShadow = 'none';
+                }
+            });
+        });
+    </script>Email</h4>
+                        <p class="text-center mb-0">
+                            <a href="mailto:anovcorp@naver.com" class="text-white text-decoration-none">anovcorp@naver.com</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="contact-card">
+                        <div class="contact-icon mx-auto">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <h4 class="text-center mb-3">
